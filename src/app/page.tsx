@@ -1,95 +1,68 @@
-import Image from "next/image";
+"use client"
+import { useState } from "react";
 import styles from "./page.module.css";
 
+const VibeCircle = ({ colors }: { colors: string[] }) => {
+  return (
+    <div className={styles.vibeCircle}>
+      {colors.map((color, index) => (
+        <div
+          key={index}
+          className={styles.colorLayer}
+          style={{
+            background: color,
+            animationDelay: `${index * -2}s`
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const moodColors = {
+  happy: "#fdf497",
+  sad: "#fd5949",
+  angry: "#d6249f",
+  anxious: "#285AEB",
+  excited: "#4f5bd5"
+} as const;
+
+type MoodPickerProps = {
+  moodPicked: (mood: keyof typeof moodColors) => void;
+};
+
+const MoodPicker = ({ moodPicked }: MoodPickerProps) => {
+  return (
+    <div className={styles.moodPicker}>
+      <button onClick={() => moodPicked("happy")}>😀</button>
+      <button onClick={() => moodPicked("sad")}>🙁</button>
+      <button onClick={() => moodPicked("angry")}>😤</button>
+      <button onClick={() => moodPicked("anxious")}>🥺</button>
+      <button onClick={() => moodPicked("excited")}>🥳</button>
+    </div>
+  );
+};
+
 export default function Home() {
+  const [colors, setColors] = useState<string[]>([
+    moodColors.happy,
+    moodColors.excited,
+  ]);
+
+  const addMood = (mood: keyof typeof moodColors) => {
+    setColors([...colors, moodColors[mood]]);
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+        <VibeCircle 
+          colors={colors}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+        <p>Hi, how are you feeling today? See how your mood effects the vibe sphere.</p>
+        <MoodPicker moodPicked={addMood} />
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
