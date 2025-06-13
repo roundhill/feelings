@@ -4,17 +4,9 @@ import styles from "./page.module.css";
 
 const VibeCircle = ({ colors }: { colors: string[] }) => {
   return (
-    <div className={styles.vibeCircle}>
-      {colors.map((color, index) => (
-        <div
-          key={index}
-          className={styles.colorLayer}
-          style={{
-            background: color,
-            animationDelay: `${index * -2}s`
-          }}
-        />
-      ))}
+    <div
+      className={styles.vibeCircle}
+      style={{ backgroundImage: `linear-gradient(-45deg, ${colors.join(", ")})` }}>
     </div>
   );
 };
@@ -45,12 +37,13 @@ const MoodPicker = ({ moodPicked }: MoodPickerProps) => {
 
 export default function Home() {
   const [colors, setColors] = useState<string[]>([
-    moodColors.happy,
-    moodColors.excited,
+    // Default colors
+    moodColors.anxious,
+    moodColors.sad,
   ]);
 
   const addMood = (mood: keyof typeof moodColors) => {
-    setColors([...colors, moodColors[mood]]);
+    setColors([...colors.slice(-2), moodColors[mood]]);
   }
 
   return (
@@ -60,7 +53,7 @@ export default function Home() {
           colors={colors}
         />
 
-        <p>Hi, how are you feeling today? See how your mood effects the vibe sphere.</p>
+        <p>Hi, how are you feeling today? See how your mood affects the vibe sphere.</p>
         <MoodPicker moodPicked={addMood} />
       </main>
     </div>
