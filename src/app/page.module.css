@@ -70,6 +70,12 @@
   height: 64px;
 }
 
+@media (prefers-color-scheme: light) {
+  .moodPicker button {
+    background-color: #ededed;
+  }
+}
+
 .moodPicker button:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease-in-out;
