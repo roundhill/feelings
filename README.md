@@ -1,3 +1,9 @@
+# Feelings
+
+A little react app to hopefully pass a vibe check :)
+
+Deployed on vercel: [https://feelings-rosy.vercel.app](https://feelings-rosy.vercel.app)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
