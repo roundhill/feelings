@@ -16,7 +16,7 @@ const VibeCircle = ({ colors }: { colors: string[] }) => {
 const moodColors: Record<string, string[]> = {
   happy: ["#FFD700", "#FF1493"],
   sad: ["#8B4513", "#DEB887"],
-  angry: ["#CD5C5C", "#DC143C"],
+  angry: ["#E9967A", "#DC143C"],
   anxious: ["#9370DB", "#FFA500"],
   excited: ["#00FFFF", "#FF00FF"]
 };
